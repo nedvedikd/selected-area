@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import NamedTuple, Optional
+from typing import NamedTuple, Optional, Tuple
 
 
 class Point(NamedTuple):
@@ -12,7 +12,7 @@ class Segment:
         self.p1 = p1
         self.p2 = p2
 
-    def line(self):
+    def line(self) -> Tuple[float, float, float]:
         a = self.p1.y - self.p2.y
         b = self.p2.x - self.p1.x
         c = self.p1.x * self.p2.y - self.p2.x * self.p1.y
@@ -38,10 +38,10 @@ class SelectedArea:
         self.p1 = p1
         self.p2 = p2
 
-    def point_inside(self, point: Point):
+    def point_inside(self, point: Point) -> bool:
         return self.p1.x <= point.x <= self.p2.x and self.p1.y <= point.y <= self.p2.y
 
-    def crossing_line(self, segment: Segment):
+    def crossing_line(self, segment: Segment) -> bool:
         plot1 = Segment(self.p1, Point(self.p2.x, self.p1.y))
         plot2 = Segment(Point(self.p1.x, self.p2.y), self.p2)
         intersections = [plot1.intersection_point(segment), plot2.intersection_point(segment)]
@@ -50,7 +50,7 @@ class SelectedArea:
                 return True
         return False
 
-    def contains(self, segment: Segment):
+    def contains(self, segment: Segment) -> bool:
         points = [segment.p1, segment.p2]
         for point in points:
             if self.point_inside(point):
