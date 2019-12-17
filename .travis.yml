@@ -1,0 +1,17 @@
+language: python
+matrix:
+  include:
+    - python: 3.8
+      dist: xenial
+      sudo: true
+
+install:
+  - pip install pipenv
+  - pipenv install
+  - pipenv install --dev
+
+script:
+  - py.test --cov-report term --cov=selected_area -vv tests/
+
+after_success:
+  - codecov
