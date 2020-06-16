@@ -1,4 +1,4 @@
-from selected_area.area import Segment, Point, SelectedArea
+from selected_area import Segment, Point, SelectedArea
 
 
 def test_segments():

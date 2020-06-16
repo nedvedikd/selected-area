@@ -15,7 +15,7 @@ pip install selected-area
 
 ## Usage
 ```python
-from selected_area.area import Segment, Point, SelectedArea
+from selected_area import Segment, Point, SelectedArea
 
 area = SelectedArea(Point(1, 2), Point(4,4))
 segment = Segment(Point(2, 1.5), Point(4.5, 3.5))
