@@ -30,7 +30,7 @@ class Segment:
             return Point(x, y)
 
     def __repr__(self):
-        return f'<Segment p1={self.p1}, p2={self.p2}>'
+        return f'Segment(p1={self.p1!r}, p2={self.p2!r})'
 
 
 class SelectedArea:

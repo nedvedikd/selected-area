@@ -28,3 +28,4 @@ def test_segments():
     assert not area.contains(segment8)
     assert not area.contains(segment9)
     assert not area.contains(segment10)
+    assert repr(segment4) == 'Segment(p1=Point(x=4, y=1), p2=Point(x=5, y=3))'
