@@ -15,10 +15,10 @@ pip install selected-area
 
 ## Usage
 ```python
-from selected_area import Segment, Point, SelectedArea
+from selected_area import Segment, SelectedArea
 
-area = SelectedArea(Point(1, 2), Point(4,4))
-segment = Segment(Point(2, 1.5), Point(4.5, 3.5))
+area = SelectedArea((1, 2), (4,4))
+segment = Segment((2, 1.5), (4.5, 3.5))
 
 if area.contains(segment):
     print('Segment was selected.')

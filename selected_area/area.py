@@ -1,24 +1,44 @@
 from __future__ import annotations
-from typing import NamedTuple, Optional, Tuple
+from dataclasses import dataclass
+from typing import Optional, Tuple, Union
 
 
-class Point(NamedTuple):
-    x: float
-    y: float
+@dataclass
+class Point:
+    x: [float, int]
+    y: [float, int]
+
+
+def convert_to_point(*args):
+    args = list(args)
+    for index, arg in enumerate(args):
+        if type(arg) == tuple:
+            args[index] = Point(*arg)
+    return args
 
 
 class Segment:
-    def __init__(self, p1: Point, p2: Point):
-        self.p1 = p1
-        self.p2 = p2
+    def __init__(self, p1, p2):
+        """
+        :type p1: Union[Point, Tuple[Union[float, int], Union[float, int]]
+        :type p2: Union[Point, Tuple[Union[float, int], Union[float, int]]
+        """
+        self.p1, self.p2 = convert_to_point(p1, p2)
 
-    def line(self) -> Tuple[float, float, float]:
+    def line(self):
+        """
+        :rtype: Tuple[float, float, float]
+        """
         a = self.p1.y - self.p2.y
         b = self.p2.x - self.p1.x
         c = self.p1.x * self.p2.y - self.p2.x * self.p1.y
         return a, b, -c
 
-    def intersection_point(self, segment2: Segment) -> Optional[Point]:
+    def intersection_point(self, segment2):
+        """
+        :type segment2: Segment
+        :rtype: Optional[Point]
+        """
         line1 = self.line()
         line2 = segment2.line()
         d = line1[0] * line2[1] - line1[1] * line2[0]
@@ -34,14 +54,25 @@ class Segment:
 
 
 class SelectedArea:
-    def __init__(self, p1: Point, p2: Point):
-        self.p1 = p1
-        self.p2 = p2
+    def __init__(self, p1, p2):
+        """
+        :type p1: Union[Point, Tuple[Union[float, int], Union[float, int]]
+        :type p2: Union[Point, Tuple[Union[float, int], Union[float, int]]
+        """
+        self.p1, self.p2 = convert_to_point(p1, p2)
 
-    def point_inside(self, point: Point) -> bool:
+    def point_inside(self, point):
+        """
+        :type point: Point
+        :rtype: bool
+        """
         return self.p1.x <= point.x <= self.p2.x and self.p1.y <= point.y <= self.p2.y
 
-    def crossing_line(self, segment: Segment) -> bool:
+    def crossing_line(self, segment):
+        """
+        :type segment: Segment
+        :rtype: bool
+        """
         plot1 = Segment(self.p1, Point(self.p2.x, self.p1.y))
         plot2 = Segment(Point(self.p1.x, self.p2.y), self.p2)
         intersections = [plot1.intersection_point(segment), plot2.intersection_point(segment)]
@@ -50,7 +81,11 @@ class SelectedArea:
                 return True
         return False
 
-    def contains(self, segment: Segment) -> bool:
+    def contains(self, segment):
+        """
+        :type segment: Segment
+        :rtype: bool
+        """
         points = [segment.p1, segment.p2]
         for point in points:
             if self.point_inside(point):

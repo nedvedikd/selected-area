@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="selected-area",  # Replace with your own username
-    version="0.1.1",
+    version="0.2.0",
     author="Dominik Nedvedik",
     author_email="dominik.nedvedik@protonmail.com",
     description="Calculates if plot/segment intersects the selected area.",
