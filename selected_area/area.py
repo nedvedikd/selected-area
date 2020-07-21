@@ -12,7 +12,11 @@ class Point:
 def convert_to_point(*args):
     args = list(args)
     for index, arg in enumerate(args):
+        if type(arg) not in [Point, tuple]:
+            raise TypeError('point must be of type Point or tuple')
         if type(arg) == tuple:
+            if len(arg) != 2:
+                raise ValueError('point must have exactly 2 values (x and y)')
             args[index] = Point(*arg)
     return args
 

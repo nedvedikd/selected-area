@@ -1,3 +1,4 @@
+import pytest
 from selected_area import Segment, SelectedArea
 
 
@@ -29,3 +30,10 @@ def test_segments():
     assert not area.contains(segment9)
     assert not area.contains(segment10)
     assert repr(segment4) == 'Segment(p1=Point(x=4, y=1), p2=Point(x=5, y=3))'
+
+
+def test_exceptions():
+    with pytest.raises(TypeError):
+        Segment([1, 2], [2, 3])
+    with pytest.raises(ValueError):
+        Segment((1, 2, 3), (2, 3))
